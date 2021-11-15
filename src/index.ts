@@ -1,5 +1,5 @@
 import got, { Headers, Method, OptionsOfJSONResponseBody } from 'got';
-import { IQuestion, ISurvey, ISurveyAnswers, ISurveyQuestionAnswers, IWebropolApiClientOptions } from './interfaces';
+import { IQuestion, ISurvey, ISurveyAnswers, ISurveyQuestionAnswers, IWebropolApiClientOptions, IWebropolApiFilter } from './interfaces';
 
 export class WebropolApiClient {
   options: IWebropolApiClientOptions;
@@ -105,49 +105,27 @@ export class WebropolApiClient {
     return await this.request('GET', 'surveys');
   }
 
-  /** Gets all questions for a survey, returns QuestionId and QuestionText. */
+  /** Gets all questions for a survey, returns QuestionId, QuestionText and QuestionOrderNumber. */
   async getSurveyQuestions(surveyId: string): Promise<IQuestion[]> {
     return await this.request('GET', `surveys/${surveyId}/questions`);
   }
 
-  /** Gets all answers for one survey that is specified in the request with the surveyId. Optional filters: startDate and endDate. */
-  async getSurveyAnswers(surveyId: string, startDate?: string, endDate?: string): Promise<ISurveyAnswers> {
+  /** Gets all answers for one survey that is specified in the request with the surveyId. Optional filters: StartDate and EndDate. */
+  async getSurveyAnswers(surveyId: string, filters?: IWebropolApiFilter): Promise<ISurveyAnswers> {
 
-    if (startDate || endDate) {
-
-      const filters: any = {};
-
-      if (startDate) {
-        filters.StartDate = startDate;
-      }
-      if (endDate) {
-        filters.EndDate = endDate;
-      }
-
+    if (filters) {
       return await this.request('POST', `surveys/${surveyId}/answers`, filters);
-
     }
 
     return await this.request('GET', `surveys/${surveyId}/answers`);
 
   }
 
-  /** Gets all answers for one question in survey that is specified in the request with the surveyId and questionId. Optional filters: startDate and endDate. */
-  async getQuestionAnswers(surveyId: string, questionId: string, startDate?: string, endDate?: string): Promise<ISurveyQuestionAnswers> {
+  /** Gets all answers for one question in survey that is specified in the request with the surveyId and questionId. Optional filters: StartDate and EndDate. */
+  async getQuestionAnswers(surveyId: string, questionId: string, filters?: IWebropolApiFilter): Promise<ISurveyQuestionAnswers> {
 
-    if (startDate || endDate) {
-
-      const filters: any = {};
-
-      if (startDate) {
-        filters.StartDate = startDate;
-      }
-      if (endDate) {
-        filters.EndDate = endDate;
-      }
-
+    if (filters) {
       return await this.request('POST', `surveys/${surveyId}/${questionId}/responses`, filters);
-
     }
 
     return await this.request('GET', `surveys/${surveyId}/${questionId}/responses`);

@@ -46,14 +46,14 @@ const webropol = new WebropolApiClient({
 
 ## Parameters needed for using the API client
 
-### surveyId
-Each survey has its own globally unique identifier (GUID) that is represented in an 32 digits with hyphens. Most of the requests will need the survey id in order to work. Your survey id can be found from the URL address when accessing the survey via UI. You can also get all your surveys with their id's by using the `getSurveys()` which will list all the surveys your account has access to.
+### SurveyId
+Each survey has its own globally unique identifier (GUID) that is represented in an 32 digits with hyphens. Most of the requests will need the survey id in order to work. Your surveyId can be found from the URL address when accessing the survey via UI. You can also get all your surveys with their id's by using the `getSurveys()` which will list all the surveys your account has access to.
 
-### questionId
+### QuestionId
 Each survey contains questions which, too, have an unique identifier, a questionId. Each question in every survey has its own questionId regardless if they are copied or structured the same. You can get all questionIds from one survey by using the `getSurveyQuestions(surveyId)`.
 
-### startDate, endDate
-Some functions allow you to filter the results by startDate and endDate. Date is a string value, for example `2020-10-10T06:09:52.232Z`.
+### StartDate, EndDate
+Some functions allow you to filter the results by StartDate and EndDate. Date is a string value, for example `2020-10-10T06:09:52.232Z`.
 
 ## Functions
 
@@ -94,7 +94,7 @@ const surveys = await webropol.getSurveys();
 
 ### getSurveyQuestions(surveyId)
 
-Gets all questions for a survey, returns QuestionId and QuestionText.
+Gets all questions for a survey, returns QuestionId, QuestionText and QuestionOrderNumber.
 
 *Example Request*
 ```javascript
@@ -107,31 +107,36 @@ const questions = await webropol.getSurveyQuestions('bc8f501a-2275-4c5b-b285-006
   "Questions": [
     {
       "QuestionId": "dfab6b44-5972-4546-ae60-9e18405cef2f",
-      "QuestionText": "Select your gender"
+      "QuestionText": "Select your gender",
+      "QuestionOrderNumber": 1
     },
     {
       "QuestionId": "f45ee848-860d-4b17-9be9-ec8337ae83cb",
-      "QuestionText": "Select your gender"
+      "QuestionText": "Select your gender",
+      "QuestionOrderNumber": 2
     },
     {
       "QuestionId": "289c951e-9bbe-471e-96d1-e9bb7ea3d1f9",
-      "QuestionText": "Which of the following fruits do you like?"
+      "QuestionText": "Which of the following fruits do you like?",
+      "QuestionOrderNumber": 3
     },
     {
       "QuestionId": "4b98d386-c89d-44e3-bdca-a29860d6fca5",
-      "QuestionText": "Evaluate the Products"
+      "QuestionText": "Evaluate the Products",
+      "QuestionOrderNumber": 4
     },
     {
       "QuestionId": "979c6447-2f0c-4e9e-a654-feb7fb11a932",
-      "QuestionText": "Your open feedback"
+      "QuestionText": "Your open feedback",
+      "QuestionOrderNumber": 5
     }
   ]
 }
 ```
 
-### getSurveyAnswers(surveyId, startDate?, endDate?)
+### getSurveyAnswers(surveyId, filters?)
 
-Gets all answers for one survey that is specified in the request with the surveyId. Optional filters: startDate and endDate.
+Gets all answers for one survey that is specified in the request with the surveyId. Optional filters: StartDate and EndDate.
 
 *Example Request*
 ```javascript
@@ -210,9 +215,9 @@ const answers = await webropol.getSurveyAnswers('53c5b1ca-5d4e-4146-90df-a85bb7a
 }
 ```
 
-### getQuestionAnswers(surveyId, questionId, startDate?, endDate?)
+### getQuestionAnswers(surveyId, questionId, filters?)
 
-Gets all answers for one question in survey that is specified in the request with the surveyId and questionId. Optional filters: startDate and endDate.
+Gets all answers for one question in survey that is specified in the request with the surveyId and questionId. Optional filters: StartDate and EndDate.
 
 *Example Request*
 ```javascript

@@ -17,6 +17,12 @@ export interface IWebropolApiClientOptions {
   timeout?: number;
 }
 
+export interface IWebropolApiFilter {
+  StartDate?: string;
+  EndDate?: string;
+  RespondentId?: string;
+}
+
 export interface ISurvey {
   SurveyId: string;
   SurveyTitle: string;
@@ -31,6 +37,7 @@ export interface ISurvey {
 export interface IQuestion {
   QuestionId: string;
   QuestionText: string;
+  QuestionOrderNumber: number;
 }
 
 export interface ISurveyAnswers {
