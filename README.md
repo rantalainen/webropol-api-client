@@ -9,7 +9,7 @@ WebropolApiClient is a third party Webropol REST API client.
 Add to project's package.json:
 
 ```
-npm install git+ssh://github@github.com/rantalainen/webropol-api-client.git#main
+npm install @rantalainen/webropol-api-client
 ```
 
 ## Setup
@@ -17,13 +17,13 @@ npm install git+ssh://github@github.com/rantalainen/webropol-api-client.git#main
 ### Import to NodeJS project
 
 ```javascript
-const { WebropolApiClient } = require('webropol-api-client');
+const { WebropolApiClient } = require('@rantalainen/webropol-api-client');
 ```
 
 ### Import to TypeScript project
 
 ```javascript
-import { WebropolApiClient } from 'webropol-api-client';
+import { WebropolApiClient } from '@rantalainen/webropol-api-client';
 ```
 
 ### Setup client with options
@@ -47,12 +47,15 @@ const webropol = new WebropolApiClient({
 ## Parameters needed for using the API client
 
 ### SurveyId
+
 Each survey has its own globally unique identifier (GUID) that is represented in an 32 digits with hyphens. Most of the requests will need the survey id in order to work. Your surveyId can be found from the URL address when accessing the survey via UI. You can also get all your surveys with their id's by using the `getSurveys()` which will list all the surveys your account has access to.
 
 ### QuestionId
+
 Each survey contains questions which, too, have an unique identifier, a questionId. Each question in every survey has its own questionId regardless if they are copied or structured the same. You can get all questionIds from one survey by using the `getSurveyQuestions(surveyId)`.
 
 ### StartDate, EndDate
+
 Some functions allow you to filter the results by StartDate and EndDate. Date is a string value, for example `2020-10-10T06:09:52.232Z`.
 
 ## Functions
@@ -61,47 +64,51 @@ Some functions allow you to filter the results by StartDate and EndDate. Date is
 
 Gets all surveys the user has access rights to.
 
-*Example Request*
+_Example Request_
+
 ```javascript
 const surveys = await webropol.getSurveys();
 ```
 
-*Example Response*
+_Example Response_
+
 ```javascript
 [
   {
-    "SurveyId": "bc8f501a-2275-4c5b-b285-00639c782394",
-    "SurveyTitle": "My Survey",
-    "Status": "Closed",
-    "ParentId": "00000000-0000-0000-0000-000000000000",
-    "ReadAccess": true,
-    "WriteAccess": true,
-    "isPublished": false,
-    "CreationDate": "2018-02-21T10:25:48"
+    SurveyId: 'bc8f501a-2275-4c5b-b285-00639c782394',
+    SurveyTitle: 'My Survey',
+    Status: 'Closed',
+    ParentId: '00000000-0000-0000-0000-000000000000',
+    ReadAccess: true,
+    WriteAccess: true,
+    isPublished: false,
+    CreationDate: '2018-02-21T10:25:48'
   },
   {
-    "SurveyId": "b9bb8406-6273-4d56-baf8-0283f51bd057",
-    "SurveyTitle": "My Other Survey",
-    "Status": "Open",
-    "ParentId": "00000000-0000-0000-0000-000000000000",
-    "ReadAccess": true,
-    "WriteAccess": true,
-    "isPublished": true,
-    "CreationDate": "2020-10-26T11:22:48.99"
+    SurveyId: 'b9bb8406-6273-4d56-baf8-0283f51bd057',
+    SurveyTitle: 'My Other Survey',
+    Status: 'Open',
+    ParentId: '00000000-0000-0000-0000-000000000000',
+    ReadAccess: true,
+    WriteAccess: true,
+    isPublished: true,
+    CreationDate: '2020-10-26T11:22:48.99'
   }
-]
+];
 ```
 
 ### getSurveyQuestions(surveyId)
 
 Gets all questions for a survey, returns QuestionId, QuestionText and QuestionOrderNumber.
 
-*Example Request*
+_Example Request_
+
 ```javascript
 const questions = await webropol.getSurveyQuestions('bc8f501a-2275-4c5b-b285-00639c782394');
 ```
 
-*Example Response*
+_Example Response_
+
 ```javascript
 {
   "Questions": [
@@ -138,12 +145,14 @@ const questions = await webropol.getSurveyQuestions('bc8f501a-2275-4c5b-b285-006
 
 Gets all answers for one survey that is specified in the request with the surveyId. Optional filters: StartDate and EndDate.
 
-*Example Request*
+_Example Request_
+
 ```javascript
 const answers = await webropol.getSurveyAnswers('53c5b1ca-5d4e-4146-90df-a85bb7a8094a');
 ```
 
-*Example Response*
+_Example Response_
+
 ```javascript
 {
   "SurveyId": "53c5b1ca-5d4e-4146-90df-a85bb7a8094a",
@@ -219,12 +228,17 @@ const answers = await webropol.getSurveyAnswers('53c5b1ca-5d4e-4146-90df-a85bb7a
 
 Gets all answers for one question in survey that is specified in the request with the surveyId and questionId. Optional filters: StartDate and EndDate.
 
-*Example Request*
+_Example Request_
+
 ```javascript
-const answersForQuestion = await webropol.getQuestionAnswers('53c5b1ca-5d4e-4146-90df-a85bb7a8094a', '60e1e8a2-3823-eb11-a95f-8dd0107f8539');
+const answersForQuestion = await webropol.getQuestionAnswers(
+  '53c5b1ca-5d4e-4146-90df-a85bb7a8094a',
+  '60e1e8a2-3823-eb11-a95f-8dd0107f8539'
+);
 ```
 
-*Example Response*
+_Example Response_
+
 ```javascript
 {
   "SurveyId": "53c5b1ca-5d4e-4146-90df-a85bb7a8094a",
@@ -289,10 +303,10 @@ const answersForQuestion = await webropol.getQuestionAnswers('53c5b1ca-5d4e-4146
 
 ## Resources
 
-* Webropol website: https://new.webropolsurveys.com/
-* Webropol Developer website: https://developer.webropol.com/
-* Webropol API terminology: https://developer.webropol.com/terminology
+- Webropol website: https://new.webropolsurveys.com/
+- Webropol Developer website: https://developer.webropol.com/
+- Webropol API terminology: https://developer.webropol.com/terminology
 
 ## Changelog
 
-* 0.0.1 First release
+- 0.0.1 First release

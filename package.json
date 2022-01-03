@@ -1,5 +1,5 @@
 {
-  "name": "webropol-api-client",
+  "name": "@rantalainen/webropol-api-client",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
@@ -26,5 +26,8 @@
   },
   "dependencies": {
     "got": "^11.8.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

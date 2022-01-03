@@ -3,15 +3,13 @@ export interface IWebropolApiClientOptions {
   webropolUsername: string;
   /** Webropol password for authentication */
   webropolPassword: string;
-  
-  
+
   /** API version that should be used, for example `v1`. Uses API version `v1` by default */
-  apiVersion?: string;  
+  apiVersion?: string;
   /** API base url, `https://rest.webropolsurveys.com/api` by default */
   apiBaseUrl?: string;
   /** API token url, `https://rest.webropolsurveys.com/Token` by default */
   apiTokenUrl?: string;
-
 
   /** Request timeout, defaults to 120000 (120 secs) */
   timeout?: number;
