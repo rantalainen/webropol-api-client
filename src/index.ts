@@ -98,7 +98,7 @@ export class WebropolApiClient {
   }
 
   /** Gets all questions for a survey, returns QuestionId, QuestionText and QuestionOrderNumber. */
-  async getSurveyQuestions(surveyId: string): Promise<IQuestion[]> {
+  async getSurveyQuestions(surveyId: string): Promise<{ Questions: IQuestion[] }> {
     return await this.request('GET', `surveys/${surveyId}/questions`);
   }
 
