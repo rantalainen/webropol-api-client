@@ -21,6 +21,15 @@ export interface IWebropolApiFilter {
   RespondentId?: string;
 }
 
+export interface IWebropolApiParams {
+  paging?: number;
+}
+
+export interface IWebropolApiRequestOptions {
+  filters?: IWebropolApiFilter;
+  params?: IWebropolApiParams;
+}
+
 export interface ISurvey {
   SurveyId: string;
   SurveyTitle: string;
@@ -99,4 +108,60 @@ export interface IRespondentQuestionAnswerAnswer {
   AnswerFile?: string;
 
   [propName: string]: any;
+}
+
+export interface IPaging {
+  ItemsPerPage: number;
+  TotalCount: number;
+  TotalPages: number;
+  CurrentPage: number;
+  IsLastItemFetched: boolean;
+  ItemCount: number;
+}
+
+type QuestionTypeName =
+  | "questionType_openended"
+  | "questionType_textField"
+  | "questionType_NPS"
+  | "questionType_selection"
+  | "questionType_multipleChoice"
+  | "questionType_DropDownList"
+  | "questionType_scaleSelection"
+  | "questionType_scaleMultipleChoice"
+  | "questionType_position"
+  | "questionType_fourfold";
+
+export interface IQuestionAnswer {
+  OptionAnswer: string;
+  QuestionOptionId: string;
+  OptionId?: string;
+  AnswerOptionId: string;
+  AttahedTextFieldValue?: string;
+  RowText?: string;
+  AnswerFile?: string;
+}
+
+export interface IRespondentAnswerNew {
+  Keywords?: string;
+  QuestionId: string;
+  QuestionTitle: string;
+  QuestionTypeId: string;
+  QuestionTypeName: QuestionTypeName;
+  Label?: string;
+  QuestionAnswers: IQuestionAnswer[];
+}
+
+export interface ISurveyAnswer {
+  RespondentId: string;
+  ResponseId: string;
+  RespondentEmail: string;
+  ResponseLanguageId: string;
+  ResponseDate: string;
+  RespondentAnswers: IRespondentAnswerNew[];
+}
+
+export interface ISurveyResponse {
+  SurveyId: string;
+  Paging: IPaging;
+  SurveyAnswers: ISurveyAnswer[];
 }

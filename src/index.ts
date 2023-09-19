@@ -1,5 +1,5 @@
 import got, { Headers, Method, OptionsOfJSONResponseBody } from 'got';
-import { IQuestion, ISurvey, ISurveyAnswers, ISurveyQuestionAnswers, IWebropolApiClientOptions, IWebropolApiFilter } from './interfaces';
+import { IQuestion, ISurvey, ISurveyAnswers, ISurveyQuestionAnswers, ISurveyResponse, IWebropolApiClientOptions, IWebropolApiFilter, IWebropolApiRequestOptions } from './interfaces';
 
 export class WebropolApiClient {
   options: IWebropolApiClientOptions;
@@ -102,13 +102,27 @@ export class WebropolApiClient {
     return await this.request('GET', `surveys/${surveyId}/questions`);
   }
 
-  /** Gets all answers for one survey that is specified in the request with the surveyId. Optional filters: StartDate and EndDate. */
+  /**
+   * Gets all answers for one survey that is specified in the request with the surveyId. Optional filters: StartDate and EndDate.
+   * 
+   * This API endpoint will be deprecated, and you should use `getSurveyResponses` instead.
+   * @deprecated
+   */
   async getSurveyAnswers(surveyId: string, filters?: IWebropolApiFilter): Promise<ISurveyAnswers> {
     if (filters) {
       return await this.request('POST', `surveys/${surveyId}/answers`, filters);
     }
 
     return await this.request('GET', `surveys/${surveyId}/answers`);
+  }
+
+  /** Gets all responses for one survey that is specified in the request with the surveyId. Optional filters: StartDate and EndDate. */
+  async getSurveyResponses(surveyId: string, options?: IWebropolApiRequestOptions): Promise<ISurveyResponse> {
+    if (options?.filters) {
+      return await this.request('POST', `surveys/${surveyId}/responses`, options.filters, options.params);
+    }
+
+    return await this.request('GET', `surveys/${surveyId}/responses`, undefined, options?.params);
   }
 
   /** Gets all answers for one question in survey that is specified in the request with the surveyId and questionId. Optional filters: StartDate and EndDate. */
