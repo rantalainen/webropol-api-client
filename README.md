@@ -145,6 +145,8 @@ _Example Response_
 
 Gets all answers for one survey that is specified in the request with the surveyId. Optional filters: StartDate and EndDate.
 
+This API endpoint will be deprecated, and you should use `getSurveyResponses` instead.
+
 _Example Request_
 
 ```javascript
@@ -217,6 +219,66 @@ _Example Response_
           "Answer": "65",
           "AnswerKeywords": "",
           "AnswerFile": null
+        }
+      ]
+    }
+  ]
+}
+```
+
+### getSurveyResponses(surveyId, options?)
+
+Gets all responses for one survey that is specified in the request with the surveyId.
+
+_Example Request_
+
+```javascript
+const responses = await webropol.getSurveyResponses('1a4d811b-3386-4c2d-3373-8df43b5a4594');
+```
+
+_Example Response_
+
+```javascript
+{
+  "SurveyId": "1a4d811b-3386-4c2d-3373-8df43b5a4594",
+  "Paging": {
+    "ItemsPerPage": 500,
+    "TotalCount": 24860,
+    "TotalPages": 50,
+    "CurrentPage": 50,
+    "IsLastItemFetched": true,
+    "ItemCount": 360
+  },
+  "SurveyAnswers": [
+    {
+      "RespondentId": "e490d2c2-c406-4c49-be4b-9085a1130eba",
+      "ResponseId": "cb21db2f-e7e4-4a35-a570-26ac9979df1a",
+      "RespondentEmail": "webropoltester@gmail.com",
+      "ResponseDate": "2020-11-11T09:37:09.593",
+      "RespondentAnswers": [
+        {
+          "Keywords": "",
+          "QuestionId": "b6ac7376-b477-4b08-94d5-1cbc505228b2",
+          "Question": "Lahtoaika",
+          "QuestionOptionId": "0a2e757c-fbc4-4e3a-81df-69d488e2dfb8",
+          "AnswerOptionId": "46e614b4-f023-eb11-812e-005056825040",
+          "Label": null,
+          "Answer": "9.11.2020 13:00",
+          "AnswerKeywords": "",
+          "AnswerFile": null,
+          "AttachedTextFieldValue": null
+        },
+        {
+          "Keywords": "",
+          "QuestionId": "0198aba0-fccb-42b8-91cd-2fb29f52247e",
+          "Question": "Tuloajan_tunti",
+          "QuestionOptionId": "53397d36-f043-48ba-9bd5-b2f989ed53c5",
+          "AnswerOptionId": "47e614b4-f023-eb11-812e-005056825040",
+          "Label": null,
+          "Answer": "12",
+          "AnswerKeywords": "",
+          "AnswerFile": null,
+          "AttachedTextFieldValue": null
         }
       ]
     }
@@ -306,7 +368,3 @@ _Example Response_
 - Webropol website: https://new.webropolsurveys.com/
 - Webropol Developer website: https://developer.webropol.com/
 - Webropol API terminology: https://developer.webropol.com/terminology
-
-## Changelog
-
-- 0.0.1 First release
